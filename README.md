@@ -10,6 +10,9 @@ MuteDeathMessages is a plugin which allows you to disable death messages with a 
 command. It works by listening for Player deaths and only sending the death message to
 those that actually want to see them.
 
-## Building
+## Usage
 
-Build steps will come after the plugins code has been tested and debugged.
+To use this plugin, simply download it from the latest
+[GitHub Action](https://github.com/105hua/MuteDeathMessages/actions)
+and drop the build into the plugins directory of your Paper
+Server!
