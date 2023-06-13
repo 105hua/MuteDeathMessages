@@ -1,5 +1,7 @@
 package me.joshdev.mutedeathmessages.libs;
 
+import it.unimi.dsi.fastutil.Hash;
+
 import java.io.*;
 import java.util.HashMap;
 
@@ -21,7 +23,7 @@ public class SerializationUtils {
         try{
             FileInputStream inputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            HashMap<String, Boolean> deserializedMap = (HashMap<String, Boolean>) objectInputStream.readObject();
+            HashMap<String, Boolean> deserializedMap = (HashMap<String, Boolean>) objectInputStream.readObject(); // TODO Handle unchecked read.
             objectInputStream.close();
             inputStream.close();
             return deserializedMap;
