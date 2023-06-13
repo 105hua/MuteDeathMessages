@@ -29,5 +29,4 @@ jobs:
         run: |
           git clone https://github.com/105hua/MuteDeathMessages.git
           cd MuteDeathMessages
-          ./gradlew applyPatches
-          ./gradlew rebuild
+          ./gradlew build
