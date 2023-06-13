@@ -1,7 +1,7 @@
 name: MuteDeathMessages
 version: '${version}'
 main: me.joshdev.mutedeathmessages.MuteDeathMessages
-api-version: 1.20
+api-version: "1.20"
 commands:
   toggledeathmsgs:
     description: Toggles the death messages in chat.
