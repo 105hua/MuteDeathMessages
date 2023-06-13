@@ -84,7 +84,7 @@ public final class MuteDeathMessages extends JavaPlugin {
         }
         // Register the death event and the toggle command.
         getServer().getPluginManager().registerEvents(new OnPlayerDeath(), this);
-        getServer().getPluginCommand("toggledeathmsgs").setExecutor(new ToggleDeathMessagesCommand());
+        this.getCommand("toggledeathmsgs").setExecutor(new ToggleDeathMessagesCommand());
         // Write to console that plugin is ready.
         logger.info("Plugin is now ready.");
     }
