@@ -19,11 +19,7 @@ public final class MuteDeathMessages extends JavaPlugin {
 
     public static boolean getToggleFromPlayer(Player player){
         String playerID = player.getUniqueId().toString();
-        if(deathTogglesTable.containsKey(playerID)){
-            return deathTogglesTable.get(playerID);
-        }else{
-            return false;
-        }
+        return deathTogglesTable.getOrDefault(playerID, false);
     }
 
     public static void setToggleForPlayer(Player player, Boolean newValue){
@@ -78,13 +74,21 @@ public final class MuteDeathMessages extends JavaPlugin {
             logger.info("Found a Toggles file, the plugin will attempt to load the data from it.");
             try{
                 deathTogglesTable = SerializationUtils.DeserializeHashMap(togglesFilePath);
+                logger.info("Successfully loaded toggles file.");
             }catch (Exception e){
                 throw new IllegalStateException("The plugin doesn't have the correct data. (Couldn't deserialize hashmap.");
             }
         }
         // Register the death event and the toggle command.
+        logger.info("Registering player death event and toggle command.");
         getServer().getPluginManager().registerEvents(new OnPlayerDeath(), this);
-        this.getCommand("toggledeathmsgs").setExecutor(new ToggleDeathMessagesCommand());
+        logger.info("Event registered.");
+        try{
+            this.getCommand("toggledeathmsgs").setExecutor(new ToggleDeathMessagesCommand()); // Ignore method invocation as it's in a try which catches the exception.
+            logger.info("Command registered.");
+        }catch(NullPointerException exception){
+            logger.info("Command registration threw an error, the toggle command will not be available in this session.");
+        }
         // Write to console that plugin is ready.
         logger.info("Plugin is now ready.");
     }

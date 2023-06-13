@@ -12,10 +12,12 @@ public class OnPlayerDeath implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event){
         Component deathMsg = event.deathMessage(); // Get death message.
         event.deathMessage(null); // Null death message that's broadcasted to the server.
-        for(Player player: event.getPlayer().getServer().getOnlinePlayers()){
-            boolean canSeeDeathMsgs = MuteDeathMessages.getToggleFromPlayer(player);
-            if(canSeeDeathMsgs){
-                player.sendMessage(deathMsg);
+        if(deathMsg != null){ // Only broadcast if death msg is not null.
+            for(Player player: event.getPlayer().getServer().getOnlinePlayers()){
+                boolean canSeeDeathMsgs = MuteDeathMessages.getToggleFromPlayer(player);
+                if(canSeeDeathMsgs){
+                    player.sendMessage(deathMsg);
+                }
             }
         }
     }

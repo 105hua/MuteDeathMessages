@@ -14,8 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class ToggleDeathMessagesCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player){
-            Player player = (Player) sender;
+        if(sender instanceof Player player){
             boolean canSeeDeathMsgs = !MuteDeathMessages.getToggleFromPlayer(player);
             MuteDeathMessages.setToggleForPlayer(player, canSeeDeathMsgs);
             if(canSeeDeathMsgs){
@@ -33,11 +32,10 @@ public class ToggleDeathMessagesCommand implements CommandExecutor {
                 );
                 player.sendMessage(disabledComponent);
             }
-            return true;
         }else{
             TextComponent invalidSenderComponent = Component.text("This command is for players only!");
             sender.sendMessage(invalidSenderComponent);
-            return true;
         }
+        return true;
     }
 }

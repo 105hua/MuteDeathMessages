@@ -27,8 +27,7 @@ public class SerializationUtils {
             objectInputStream.close();
             inputStream.close();
 
-            if(hashMapObject instanceof HashMap){
-                HashMap<?, ?> tempHashMap = (HashMap<?, ?>) hashMapObject;
+            if(hashMapObject instanceof HashMap<?, ?> tempHashMap){
                 boolean validTypes = true;
 
                 for(Map.Entry<?, ?> entry : tempHashMap.entrySet()){
