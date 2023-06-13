@@ -1,9 +1,8 @@
 package me.joshdev.mutedeathmessages.libs;
 
-import it.unimi.dsi.fastutil.Hash;
-
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SerializationUtils {
     public static boolean SerializeHashMap(HashMap<String, Boolean> inputMap, String filePath){
@@ -19,16 +18,33 @@ public class SerializationUtils {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static HashMap<String, Boolean> DeserializeHashMap(String filePath){
         try{
             FileInputStream inputStream = new FileInputStream(filePath);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            HashMap<String, Boolean> deserializedMap = (HashMap<String, Boolean>) objectInputStream.readObject(); // TODO Handle unchecked read.
+            Object hashMapObject = objectInputStream.readObject();
             objectInputStream.close();
             inputStream.close();
-            return deserializedMap;
+
+            if(hashMapObject instanceof HashMap){
+                HashMap<?, ?> tempHashMap = (HashMap<?, ?>) hashMapObject;
+                boolean validTypes = true;
+
+                for(Map.Entry<?, ?> entry : tempHashMap.entrySet()){
+                    if(!(entry.getKey() instanceof String) || !(entry.getValue() instanceof Boolean)){
+                        validTypes = false;
+                        break;
+                    }
+                }
+
+                if(validTypes){
+                    return (HashMap<String, Boolean>) hashMapObject;
+                }
+            }
         }catch(Exception e){
             return null;
         }
+        return null;
     }
 }
