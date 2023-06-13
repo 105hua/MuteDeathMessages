@@ -1,0 +1,29 @@
+name: Plugin Build Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Build Plugin
+        run: |
+          git clone https://github.com/105hua/MuteDeathMessages.git
+          cd MuteDeathMessages
+          ./gradlew applyPatches
+          ./gradlew rebuild
